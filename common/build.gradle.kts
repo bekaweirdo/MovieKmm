@@ -28,26 +28,43 @@ kotlin {
         }
     }
 
-    sourceSets.androidMain.dependencies {
-        implementation("app.cash.sqldelight:android-driver:2.0.0")
-        implementation(libs.koin.android)
-    }
-
-    // or iosMain, windowsMain, etc.
-    sourceSets.nativeMain.dependencies {
-        implementation("app.cash.sqldelight:native-driver:2.0.0")
-    }
-
-    sourceSets.jvmMain.dependencies {
-        implementation("app.cash.sqldelight:sqlite-driver:2.0.0")
-    }
-    
     sourceSets {
-        commonMain.dependencies {
-            //put your multiplatform dependencies here
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.koin.core)
+                implementation(libs.ktor.negotiation)
+                implementation(libs.ktor.core)
+                implementation(libs.ktor.logging)
+            }
         }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
+
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
+
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.androidx.appcompat)
+                implementation(libs.androidx.activity.compose)
+                implementation(libs.compose.ui.tooling)
+                implementation(libs.kotlinx.coroutines.android)
+                implementation(libs.ktor.client.okhttp)
+                implementation(libs.sqlDelight.driver.android)
+                implementation(libs.koin.android)
+            }
+        }
+
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependencies {
+                implementation(libs.ktor.client.ios)
+                implementation(libs.ktor.client.darwin)
+                implementation(libs.sqlDelight.driver.native)
+            }
         }
     }
 }
