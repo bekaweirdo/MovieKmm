@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.androidLibrary)
+    kotlin("plugin.serialization").version("1.9.21")
+    id("com.squareup.sqldelight").version("1.5.5")
 }
 
 kotlin {
@@ -31,10 +33,11 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.koin.core)
-                implementation(libs.ktor.negotiation)
+                implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.ktor.core)
-                implementation(libs.ktor.logging)
+                implementation(libs.ktor.negotiation)
+                implementation(libs.ktor.json)
+                implementation(libs.kotlinx.datetime)
             }
         }
 
@@ -50,9 +53,8 @@ kotlin {
                 implementation(libs.androidx.activity.compose)
                 implementation(libs.compose.ui.tooling)
                 implementation(libs.kotlinx.coroutines.android)
-                implementation(libs.ktor.client.okhttp)
                 implementation(libs.sqlDelight.driver.android)
-                implementation(libs.koin.android)
+                implementation(libs.ktor.client.android)
             }
         }
 
@@ -61,11 +63,16 @@ kotlin {
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependencies {
-                implementation(libs.ktor.client.ios)
                 implementation(libs.ktor.client.darwin)
                 implementation(libs.sqlDelight.driver.native)
             }
         }
+    }
+}
+
+sqldelight {
+    database("MovieDB") {
+        packageName = "com.bekka.moviekmm.database"
     }
 }
 
