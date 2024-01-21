@@ -8,7 +8,7 @@ android {
     compileSdk = 34
     defaultConfig {
         applicationId = "com.bekka.moviekmm.android"
-        minSdk = 29
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -40,6 +40,9 @@ android {
 
 dependencies {
     implementation(projects.common)
+    implementation(projects.features.watchlist)
+    implementation(projects.features.watchlistDetails)
+
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
@@ -47,5 +50,7 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.koin.android)
     implementation(libs.koin.core)
+    implementation(libs.voyager.koin)
+    implementation(libs.voyager.navigator)
     debugImplementation(libs.compose.ui.tooling)
 }

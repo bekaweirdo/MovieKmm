@@ -17,3 +17,6 @@ dependencyResolutionManagement {
 rootProject.name = "MovieKMM"
 include(":androidApp")
 include(":common")
+include(":features")
+include(":features:watchlist")
+include(":features:watchlist-details")

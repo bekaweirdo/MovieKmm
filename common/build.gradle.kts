@@ -80,6 +80,6 @@ android {
     namespace = "com.bekka.moviekmm"
     compileSdk = 34
     defaultConfig {
-        minSdk = 29
+        minSdk = 28
     }
 }
